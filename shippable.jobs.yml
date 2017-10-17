@@ -1,0 +1,17 @@
+jobs:
+
+# jobs for the sample provision-gke-kubernetes-cluster app pipeline
+
+################################
+
+# add pipeline job
+# TEST deployment to Kube cluster on AWS
+  - name: provision_gke_cluster_job
+    type: runSh
+    steps:
+      - IN: app_gitRepo
+          # manually trigger cluster provisioning
+          switch: off
+      - IN: gke_cliConfig
+      - TASK:
+        - script: . $APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh
