@@ -30,7 +30,7 @@ jobs:
         - script: echo $(shipctl get_resource_version_key central_state cluster)
         # get the zones from central state
         - script: echo $(shipctl get_resource_version_key central_state zones)
-        
+
 
   - name: deprovision_gke_cluster_job
     type: runSh
@@ -42,6 +42,9 @@ jobs:
       - IN: central_state
       - TASK:
         # get the cluster name from central state
+        - script: echo $(shipctl get_resource_version_key central_state cluster)
+        # get the zones from central state
+        - script: echo $(shipctl get_resource_version_key central_state zones)
         - script: cluster=$(shipctl get_resource_version_key central_state cluster)
         # get the zones from central state
         - script: zones=$(shipctl get_resource_version_key central_state zones)
