@@ -49,4 +49,4 @@ jobs:
         # get the zones from central state
         - script: zones=$(shipctl get_resource_version_key central_state zones)
         # deprovision the GKE cluster
-        #- script: . $APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh $cluster $zones
+        - script: . $APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh $cluster $zones
