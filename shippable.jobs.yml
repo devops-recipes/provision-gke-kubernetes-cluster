@@ -17,13 +17,20 @@ jobs:
       - IN: central_state
       - OUT: central_state
       - TASK:
+        - script: echo $(shipctl get_resource_version_key central_state cluster)
+        # get the zones from central state
+        - script: echo $(shipctl get_resource_version_key central_state zones)
         # provision the GKE cluster
-        - script: . $APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh test-cluster us-central1-b
-        - script: . $APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh test-cluster us-central1-b
+        #- script: . $APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh test-cluster us-central1-b
+        #- script: . $APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh test-cluster us-central1-b
         # Save cluster name and zones to central state
         # http://docs.shippable.com/platform/tutorial/workflow/sharing-data-between-jobs/
         - script: shipctl put_resource_state central_state cluster test-cluster
         - script: shipctl put_resource_state central_state zones us-central1-b
+        - script: echo $(shipctl get_resource_version_key central_state cluster)
+        # get the zones from central state
+        - script: echo $(shipctl get_resource_version_key central_state zones)
+        
 
   - name: deprovision_gke_cluster_job
     type: runSh
@@ -39,4 +46,4 @@ jobs:
         # get the zones from central state
         - script: zones=$(shipctl get_resource_version_key central_state zones)
         # deprovision the GKE cluster
-        - script: . $APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh $cluster $zones
+        #- script: . $APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh $cluster $zones
