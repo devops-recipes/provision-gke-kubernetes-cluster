@@ -4,8 +4,9 @@ jobs:
 
 ################################
 
-# add pipeline job
-# TEST deployment to Kube cluster on AWS
+# add pipeline jobs
+
+  # Job that provisions the GKE cluster
   - name: provision_gke_cluster_job
     type: runSh
     steps:
@@ -13,5 +14,22 @@ jobs:
         # manually trigger cluster provisioning
         switch: off
       - IN: gke_cliConfig
+      - OUT: central_state
       - TASK:
-        - script: . $APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh
+        # provision the GKE cluster
+        - script: ./$APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh test_cluster
+        # Save cluster name to central state
+        # http://docs.shippable.com/platform/tutorial/workflow/sharing-data-between-jobs/
+        - script: shipctl put_resource_state central_state "cluster_name" "test-cluster"
+
+  - name: deprovision_gke_cluster_job
+    type: runSh
+    steps:
+      - IN: app_gitRepo
+        switch: off
+      - IN: gke_cliConfig
+      - IN: provision_gke_cluster_job
+      - IN: central_state
+      - TASK:
+        # provision the GKE cluster
+        - script: ./$APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh

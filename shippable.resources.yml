@@ -1,7 +1,7 @@
 resources:
 # resources for the sample provision-gke-kubernetes-cluster app pipeline
 
-# GitHub repo holding scripts to be used in runsh pipeline job
+  # GitHub repo holding scripts to be used in runsh pipeline job
   - name: app_gitRepo
     type: gitRepo
     integration: dr_github # replace with your GitHub integration name
@@ -11,7 +11,11 @@ resources:
       sourceName: devops-recipes/provision-gke-kubernetes-cluster
       branch: master
 
-# config for GKE CLI
+  # config for GKE CLI
   - name: gke_cliConfig
     type: cliConfig
     integration: drship_gke
+
+  # central state resource
+  - name: central_state
+    type: state
