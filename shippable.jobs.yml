@@ -17,10 +17,11 @@ jobs:
       - OUT: central_state
       - TASK:
         # provision the GKE cluster
-        - script: . $APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh test-cluster
-        # Save cluster name to central state
+        - script: . $APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh test-cluster us-central1-b
+        # Save cluster name and zone to central state
         # http://docs.shippable.com/platform/tutorial/workflow/sharing-data-between-jobs/
         - script: shipctl put_resource_state central_state "cluster_name" "test-cluster"
+        - script: shipctl put_resource_state central_state "zone" "us-central1-b"
 
   - name: deprovision_gke_cluster_job
     type: runSh
@@ -31,5 +32,5 @@ jobs:
       - IN: provision_gke_cluster_job
       - IN: central_state
       - TASK:
-        # provision the GKE cluster
+        # deprovision the GKE cluster
         - script: . $APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh
