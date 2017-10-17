@@ -10,8 +10,8 @@ jobs:
     type: runSh
     steps:
       - IN: app_gitRepo
-          # manually trigger cluster provisioning
-          switch: off
+        # manually trigger cluster provisioning
+        switch: off
       - IN: gke_cliConfig
       - TASK:
         - script: . $APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh
