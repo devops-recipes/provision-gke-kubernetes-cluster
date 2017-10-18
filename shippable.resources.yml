@@ -1,5 +1,5 @@
 resources:
-# resources for the sample provision-gke-kubernetes-cluster app pipeline
+# resources for the provision-gke-kubernetes-cluster app 
 
   # GitHub repo holding scripts to be used in runsh pipeline job
   - name: app_gitRepo

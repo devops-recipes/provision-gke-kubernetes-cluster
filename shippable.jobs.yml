@@ -1,10 +1,5 @@
 jobs:
-
-# jobs for the sample provision-gke-kubernetes-cluster app pipeline
-
-################################
-
-# add pipeline jobs
+# jobs for the provision-gke-kubernetes-cluster app
 
   # Job that provisions the GKE cluster
   - name: provision_gke_cluster_job
@@ -14,15 +9,11 @@ jobs:
         # manually trigger cluster provisioning
         switch: off
       - IN: gke_cliConfig
-      - IN: central_state
-      - OUT: central_state
       - TASK:
         # provision the GKE cluster
-        - script: . $APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh test-cluster
-        # Save cluster name to central state
-        # http://docs.shippable.com/platform/tutorial/workflow/sharing-data-between-jobs/
-        - script: shipctl put_resource_state central_state cluster test-cluster
+        - script: . $APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh test-cluster us-central1-b
 
+  # Job that deprovisions the GKE cluster
   - name: deprovision_gke_cluster_job
     type: runSh
     steps:
@@ -30,14 +21,6 @@ jobs:
         switch: off
       - IN: gke_cliConfig
       - IN: provision_gke_cluster_job
-      - IN: central_state
       - TASK:
-        # get the cluster name from central state
-        # temporary workaround for get_resource_version_key bug
-        - script: |
-            RESOURCE_VERSION_FILE="/build/IN/central_state/version.json"
-            cluster=$(shipctl get_json_value $RESOURCE_VERSION_FILE "version.propertyBag.cluster")
-            echo "cluster is "$cluster
-        # - script: cluster=$(shipctl get_resource_version_key central_state cluster)
         # deprovision the GKE cluster
-        - script: . $APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh $cluster
+        - script: . $APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh test-cluster us-central1-b
