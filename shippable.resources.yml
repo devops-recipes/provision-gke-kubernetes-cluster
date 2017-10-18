@@ -7,7 +7,7 @@ resources:
     integration: dr_github # replace with your GitHub integration name
     pointer:
       # replace with source code location (e.g. GitHub) where you cloned this
-      # sample project
+      # sample project.
       sourceName: devops-recipes/provision-gke-kubernetes-cluster
       branch: master
 
@@ -15,3 +15,5 @@ resources:
   - name: gke_cliConfig
     type: cliConfig
     integration: drship_gke
+    pointer:
+      region: us-central1-b

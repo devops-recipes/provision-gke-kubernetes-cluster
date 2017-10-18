@@ -12,7 +12,7 @@ jobs:
       - IN: app_trigger
       - TASK:
         # provision the GKE cluster
-        - script: . $APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh test-cluster us-central1-b
+        - script: . $APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh test-cluster
 
   # Job that deprovisions the GKE cluster
   - name: deprovision_gke_cluster_job
@@ -24,4 +24,4 @@ jobs:
       - IN: provision_gke_cluster_job
       - TASK:
         # deprovision the GKE cluster
-        - script: . $APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh test-cluster us-central1-b
+        - script: . $APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh test-cluster GKE_CLICONFIG_POINTER_REGION

@@ -5,4 +5,4 @@ triggers:
     type: trigger
     version:
       # update counter to trigger the workflow
-      counter: 1
+      counter: 2
