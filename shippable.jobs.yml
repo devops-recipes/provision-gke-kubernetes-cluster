@@ -36,9 +36,13 @@ jobs:
         # temporary workaround for get_resource_version_key bug
         - script: |
             UP=$(shipctl get_resource_name central_state)
+            echo "UP is "$UP
             RESOURCE_META=$(shipctl get_resource_meta $UP)
+            echo "RESOURCE_META is "$RESOURCE_META
             RESOURCE_VERSION_FILE=$RESOURCE_META/version.json
+            echo "RESOURCE_VERSION_FILE is "$RESOURCE_VERSION_FILE
             cluster=$(shipctl get_json_value $RESOURCE_VERSION_FILE "propertyBag.cluster")
+            echo "cluster is "$cluster
         # - script: cluster=$(shipctl get_resource_version_key central_state cluster)
         # deprovision the GKE cluster
         - script: . $APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh $cluster
