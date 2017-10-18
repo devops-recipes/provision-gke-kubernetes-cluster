@@ -1,5 +1,5 @@
 resources:
-# resources for the provision-gke-kubernetes-cluster app 
+# resources for the provision-gke-kubernetes-cluster app
 
   # GitHub repo holding scripts to be used in runsh pipeline job
   - name: app_gitRepo
@@ -15,7 +15,3 @@ resources:
   - name: gke_cliConfig
     type: cliConfig
     integration: drship_gke
-
-  # central state resource
-  - name: central_state
-    type: state
