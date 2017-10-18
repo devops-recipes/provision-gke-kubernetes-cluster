@@ -6,12 +6,12 @@ jobs:
     type: runSh
     steps:
       - IN: app_gitRepo
-        # manually trigger cluster provisioning
+        # manually trigger the cluster provisioning job and not on every commit to the repository
         switch: off
       - IN: gke_cliConfig
       - IN: app_trigger
       - TASK:
-        # provision the GKE cluster
+        # invoke a script that provisions the GKE cluster named test-cluster
         - script: . $APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh test-cluster
 
   # Job that deprovisions the GKE cluster
@@ -23,5 +23,7 @@ jobs:
       - IN: gke_cliConfig
       - IN: provision_gke_cluster_job
       - TASK:
-        # deprovision the GKE cluster
-        - script: . $APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh test-cluster GKE_CLICONFIG_POINTER_REGION
+        # invoke a script that deprovisions the GKE cluster named test-cluster
+        # $GKE_CLICONFIG_POINTER_REGION is an environment variable that is automatically created and injected
+        # by the gke_cliConfig resource and points to the availability zone.
+        - script: . $APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh test-cluster $GKE_CLICONFIG_POINTER_REGION
