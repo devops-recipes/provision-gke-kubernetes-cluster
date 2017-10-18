@@ -9,6 +9,7 @@ jobs:
         # manually trigger cluster provisioning
         switch: off
       - IN: gke_cliConfig
+      - IN: app_trigger
       - TASK:
         # provision the GKE cluster
         - script: . $APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh test-cluster us-central1-b
