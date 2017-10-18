@@ -8,10 +8,10 @@ gcloud container clusters get-credentials $1 --zone $2
 
 # replace service with your own service name
 service="hello-world"
-response=$(kubectl get service $service)
-echo "service query response "$response
+response=$(kubectl get service $service || echo "ServiceNotFound")
+echo "service query response: "$response
 
-if [[ $response =~ .*(NotFound).* ]]
+if [[ $response = "ServiceNotFound" ]]
 then
    echo "no service found, deleting cluster"
    gcloud -q container clusters delete $1 --zone=$2
