@@ -35,8 +35,8 @@ jobs:
         # get the cluster name from central state
         # temporary workaround for get_resource_version_key bug
         - script: |
-            UP=$(get_resource_name central_state)
-            RESOURCE_META=$(get_resource_meta $UP)
+            UP=$(shipctl get_resource_name central_state)
+            RESOURCE_META=$(shipctl get_resource_meta $UP)
             RESOURCE_VERSION_FILE=$RESOURCE_META/version.json
             cluster=$(shipctl get_json_value $RESOURCE_VERSION_FILE "propertyBag.cluster")
         # - script: cluster=$(shipctl get_resource_version_key central_state cluster)
