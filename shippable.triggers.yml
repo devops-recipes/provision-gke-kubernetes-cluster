@@ -1,7 +1,7 @@
 triggers:
 # triggers for the provision-gke-kubernetes-cluster app
 
-  - name: progke_trigger
+  - name: provgke_trigger
     type: trigger
     version:
       # update counter to trigger the workflow
