@@ -32,4 +32,4 @@ jobs:
         # invoke a script that deprovisions the GKE cluster defined in the provgke_cluster_params params resource
         # $GKE_CLICONFIG_POINTER_REGION is an environment variable that is automatically created and injected
         # by the gke_cliConfig resource and points to the availability zone.
-        - script: . $PROVGKE_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh $PROVGKE_CLUSTER_NAME $GKE_CLICONFIG_POINTER_REGION
+        - script: . $PROVGKE_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh $PROVGKE_CLUSTER_NAME $PROVGKE_CLICONFIG_POINTER_REGION $PROVGKE_KUBERNETES_NAMESPACE

@@ -8,6 +8,7 @@ resources:
         PROVGKE_CLUSTER_NAME: "test-kube-cluster"
         PROVGKE_CLUSTER_NUM_NODES: 1
         PROVGKE_CLUSTER_MACHINE_TYPE: "n1-standard-1"
+        PROVGKE_KUBERNETES_NAMESPACE: "kube-app"
 
   # GitHub repo holding scripts to be used in runsh pipeline job
   - name: provgke_gitRepo
