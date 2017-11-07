@@ -5,30 +5,30 @@ jobs:
   - name: provision_gke_cluster_job
     type: runSh
     steps:
-      - IN: app_cluster_params
-      - IN: app_gitRepo
+      - IN: provgke_cluster_params
+      - IN: provgke_gitRepo
         # manually trigger the cluster provisioning job and not on every commit to the repository
         switch: off
-      - IN: gke_cliConfig
+      - IN: provgke_cliConfig
         scopes:
           - gke
-      - IN: app_trigger
+      - IN: provgke_trigger
       - TASK:
-        # invoke a script that provisions the GKE cluster named test-kube-cluster
-        - script: . $APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh $APP_CLUSTER_NAME $APP_CLUSTER_NUM_NODES $APP_CLUSTER_MACHINE_TYPE
+        # invoke a script that provisions the GKE cluster defined in the provgke_cluster_params params resource
+        - script: . $PROVGKE_GITREPO_PATH/gitRepo/provision_gke_cluster.sh $PROVGKE_CLUSTER_NAME $PROVGKE_CLUSTER_NUM_NODES $PROVGKE_CLUSTER_MACHINE_TYPE
 
   # Job that deprovisions the GKE cluster
   - name: deprovision_gke_cluster_job
     type: runSh
     steps:
-      - IN: app_gitRepo
+      - IN: provgke_gitRepo
         switch: off
-      - IN: gke_cliConfig
+      - IN: provgke_cliConfig
         scopes:
           - gke
       - IN: provision_gke_cluster_job
       - TASK:
-        # invoke a script that deprovisions the GKE cluster named test-cluster
+        # invoke a script that deprovisions the GKE cluster defined in the provgke_cluster_params params resource
         # $GKE_CLICONFIG_POINTER_REGION is an environment variable that is automatically created and injected
         # by the gke_cliConfig resource and points to the availability zone.
-        - script: . $APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh $APP_CLUSTER_NAME $GKE_CLICONFIG_POINTER_REGION
+        - script: . $PROVGKE_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh $PROVGKE_CLUSTER_NAME $GKE_CLICONFIG_POINTER_REGION

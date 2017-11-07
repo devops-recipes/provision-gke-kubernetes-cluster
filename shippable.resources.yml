@@ -1,16 +1,16 @@
 resources:
-# resources for the provision-gke-kubernetes-cluster app
+# resources for the provision-gke-kubernetes-cluster provgke
 
-  - name: app_cluster_params
+  - name: provgke_cluster_params
     type: params
     version:
       params:
-        APP_CLUSTER_NAME: "test-kube-cluster"
-        APP_CLUSTER_NUM_NODES: 1
-        APP_CLUSTER_MACHINE_TYPE: "n1-standard-1"
+        PROVGKE_CLUSTER_NAME: "test-kube-cluster"
+        PROVGKE_CLUSTER_NUM_NODES: 1
+        PROVGKE_CLUSTER_MACHINE_TYPE: "n1-standard-1"
 
   # GitHub repo holding scripts to be used in runsh pipeline job
-  - name: app_gitRepo
+  - name: provgke_gitRepo
     type: gitRepo
     integration: drship_github # replace with your GitHub integration name
     pointer:
@@ -20,7 +20,7 @@ resources:
       branch: master
 
   # config for GKE CLI
-  - name: gke_cliConfig
+  - name: provgke_cliConfig
     type: cliConfig
     integration: drship_gcloud    # replace with your Google Cloud integration name
     pointer:
