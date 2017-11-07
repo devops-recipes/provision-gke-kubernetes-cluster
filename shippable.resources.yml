@@ -1,6 +1,14 @@
 resources:
 # resources for the provision-gke-kubernetes-cluster app
 
+  - name: app_cluster_params
+    type: params
+    version:
+      params:
+        APP_CLUSTER_NAME: "test-kube-cluster"
+        APP_CLUSTER_NUM_NODES: 1
+        APP_CLUSTER_MACHINE_TYPE: "n1-standard-1"
+
   # GitHub repo holding scripts to be used in runsh pipeline job
   - name: app_gitRepo
     type: gitRepo

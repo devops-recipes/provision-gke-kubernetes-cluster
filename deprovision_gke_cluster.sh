@@ -4,15 +4,12 @@
 # generate the kubectl config file
 gcloud container clusters get-credentials $1 --zone $2
 
-# replace service with your own service name
-service="hello-world"
-
 # check if services are running and delete cluster only if no service is found
-response=$(kubectl get service $service || echo "ServiceNotFound")
-echo "service query response: "$response
+response=$(kubectl get pods --namespace $3)
+echo "Pods for namespace: "$response
 
-if [[ $response = "ServiceNotFound" ]]
-then
-   echo "no service found, deleting cluster"
-   gcloud -q container clusters delete $1 --zone=$2
-fi
+# delete all pods and services
+kubectl -n $3 delete po,svc --all
+
+# delete the container
+gcloud -q container clusters delete $1 --zone=$2

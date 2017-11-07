@@ -5,6 +5,7 @@ jobs:
   - name: provision_gke_cluster_job
     type: runSh
     steps:
+      - IN: app_cluster_params
       - IN: app_gitRepo
         # manually trigger the cluster provisioning job and not on every commit to the repository
         switch: off
@@ -12,7 +13,7 @@ jobs:
       - IN: app_trigger
       - TASK:
         # invoke a script that provisions the GKE cluster named test-cluster
-        - script: . $APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh test-cluster
+        - script: . $APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh $APP_CLUSTER_NAME $APP_CLUSTER_NUM_NODES $APP_CLUSTER_MACHINE_TYPE
 
   # Job that deprovisions the GKE cluster
   - name: deprovision_gke_cluster_job
