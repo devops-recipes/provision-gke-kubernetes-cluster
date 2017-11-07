@@ -14,7 +14,7 @@ jobs:
           - gke
       - IN: app_trigger
       - TASK:
-        # invoke a script that provisions the GKE cluster named test-cluster
+        # invoke a script that provisions the GKE cluster named test-kube-cluster
         - script: . $APP_GITREPO_PATH/gitRepo/provision_gke_cluster.sh $APP_CLUSTER_NAME $APP_CLUSTER_NUM_NODES $APP_CLUSTER_MACHINE_TYPE
 
   # Job that deprovisions the GKE cluster
@@ -31,4 +31,4 @@ jobs:
         # invoke a script that deprovisions the GKE cluster named test-cluster
         # $GKE_CLICONFIG_POINTER_REGION is an environment variable that is automatically created and injected
         # by the gke_cliConfig resource and points to the availability zone.
-        - script: . $APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh test-cluster $GKE_CLICONFIG_POINTER_REGION
+        - script: . $APP_GITREPO_PATH/gitRepo/deprovision_gke_cluster.sh $APP_CLUSTER_NAME $GKE_CLICONFIG_POINTER_REGION
