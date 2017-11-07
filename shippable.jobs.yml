@@ -21,7 +21,7 @@ jobs:
   - name: deprovision_gke_cluster_job
     type: runSh
     steps:
-      - IN: provgke_cluster_params
+      - IN: provgke_cluster_paramss
       - IN: provgke_gitRepo
         switch: off
       - IN: provgke_cliConfig
