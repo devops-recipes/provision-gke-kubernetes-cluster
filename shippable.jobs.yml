@@ -10,6 +10,8 @@ jobs:
         # manually trigger the cluster provisioning job and not on every commit to the repository
         switch: off
       - IN: gke_cliConfig
+        scopes:
+          - gke
       - IN: app_trigger
       - TASK:
         # invoke a script that provisions the GKE cluster named test-cluster
@@ -22,6 +24,8 @@ jobs:
       - IN: app_gitRepo
         switch: off
       - IN: gke_cliConfig
+        scopes:
+          - gke
       - IN: provision_gke_cluster_job
       - TASK:
         # invoke a script that deprovisions the GKE cluster named test-cluster
